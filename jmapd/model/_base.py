@@ -1,4 +1,4 @@
-
+# encoding: utf8
 #
 # This file is part of the jmapd project at https://github.com/arskom/jmapd.
 #
