@@ -6,10 +6,12 @@
 
 import re, os, setuptools
 
-with open("README.md", "r") as fh:
+ME = os.path.dirname(__file__)
+
+with open(os.path.join(ME, "README.md"), "r") as fh:
     long_description = fh.read()
 
-v = open(os.path.join(os.path.dirname(__file__), 'jmapd', '__init__.py'))
+v = open(os.path.join(ME, 'jmapd', '__init__.py'))
 VERSION = re.compile(r".*__version__ *= *['\"](.*?)['\"]", re.S) \
                                                        .match(v.read()).group(1)
 
