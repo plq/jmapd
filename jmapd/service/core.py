@@ -22,7 +22,7 @@ from jmapd.service import ReaderBase
 
 class CoreReaderServices(ReaderBase):
     @rpc(_returns=Capabilities.customize(wrapper='capabilities'))
-    def caps(ctx):
+    def jmap(ctx):
         retval = Capabilities(
             core=ctx.app.config.caps_core
         )
