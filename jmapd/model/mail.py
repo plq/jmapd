@@ -9,9 +9,21 @@
 # obtain a copy from the repository root cited above.
 #
 
-from spyne import ComplexModel, UnsignedInteger, AnyDict
+import pytz
+
+from datetime import datetime
+
+from spyne import M, ComplexModel, UnsignedInteger, AnyDict, Unicode
 
 from jmapd.model import UtcDate, JmapId
+
+
+class EmailAddress(ComplexModel):
+    _type_info = [
+        ('email', M(Unicode(default=''))),
+        ('name', M(Unicode(default=''))),
+    ]
+
 
 r"""
 Keywords are shared with IMAP. The six system keywords from IMAP get special
