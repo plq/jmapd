@@ -13,15 +13,22 @@ import pytz
 
 from datetime import datetime
 
-from spyne import M, ComplexModel, UnsignedInteger, AnyDict, Unicode
+from spyne import M, ComplexModel, UnsignedInteger, AnyDict, Unicode, Array
 
 from jmapd.model import UtcDate, JmapId
 
 
 class EmailAddress(ComplexModel):
     _type_info = [
-        ('email', M(Unicode(default=''))),
         ('name', M(Unicode(default=''))),
+        ('email', M(Unicode(default=''))),
+    ]
+
+
+class EmailAddressGroup(ComplexModel):
+    _type_info = [
+        ('name', M(Unicode(default=''))),
+        ('addresses', Array(M(Unicode(default='')))),
     ]
 
 
