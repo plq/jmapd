@@ -94,7 +94,7 @@ class Email(ComplexModel):
                 "this Email belongs."
         )),
 
-        ('mailbox_ids', AnyDict(  # this is supposed to be a JmapId: Boolean dict
+        ('mailbox_ids', AnyDict(  # this is supposed to be a JmapId: bool dict
             sub_name='mailboxIds',
             doc="The set of Mailbox ids this Email belongs to. An "
                 "Email in the mail store MUST belong to one or more Mailboxes "
@@ -103,7 +103,7 @@ class Email(ComplexModel):
                 "for each key in the object MUST be true."
         )),
 
-        ('keywords', AnyDict(  # this is supposed to be a String: Boolean dict
+        ('keywords', AnyDict(  # this is supposed to be a str: bool dict
             sub_name='keywords',
             doc="(default: {}) A set of keywords that apply "
                 "to the Email. The set is represented as an object, with the "
