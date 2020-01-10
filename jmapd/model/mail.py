@@ -120,6 +120,8 @@ class Email(ComplexModel):
         )),
 
         ('received_at', UtcDate(
+            default_factory=lambda: datetime.utcnow().replace(tzinfo=pytz.utc)
+                                                                   .isoformat(),
             sub_name='receivedAt',
             doc="(immutable; default: time of creation on server) The "
                 "date the Email was received by the message store. This is "
