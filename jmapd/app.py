@@ -10,10 +10,11 @@
 #
 
 
-from neurons import Application
 from spyne.protocol.http import HttpRpc
 from spyne.protocol.json import JsonDocument
 from spyne.util import memoize
+
+from neurons import Application
 
 from jmapd.service.core import CoreReaderServices
 from jmapd.service.mail import MailWriterServices, MailReaderServices
