@@ -9,6 +9,7 @@
 # obtain a copy from the repository root cited above.
 #
 
+from __future__ import unicode_literals
 
 from spyne import M, ComplexModel, Unicode, UnsignedInteger, Array, Boolean
 from spyne.protocol.dictdoc import DictDocument

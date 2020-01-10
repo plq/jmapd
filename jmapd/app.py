@@ -16,6 +16,7 @@ from spyne.protocol.json import JsonDocument
 from spyne.util import memoize
 
 from jmapd.service.core import CoreReaderServices
+from jmapd.service.mail import MailWriterServices, MailReaderServices
 
 
 @memoize  # this makes sure the app is initialized only once
@@ -27,11 +28,18 @@ def start_core(config):
 
     subconfig.subapps.update({
         '': Application(
-            [
-                CoreReaderServices,
-            ],
+            [CoreReaderServices],
             tns='https://jmap.io/', name='CoreServices',
             in_protocol=HttpRpc(validator='soft'),
+            out_protocol=JsonDocument(),
+            config=config,
+        ),
+        'api': Application(
+            [
+                MailReaderServices, MailWriterServices,
+            ],
+            tns='https://jmap.io/', name='ApiServices',
+            in_protocol=JsonDocument(validator='soft'),
             out_protocol=JsonDocument(),
             config=config,
         )

@@ -29,4 +29,5 @@ class CoreReaderServices(ReaderBase):
         )
 
         logger.info("%s", pformat(retval))
+
         return retval

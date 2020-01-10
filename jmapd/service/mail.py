@@ -9,8 +9,12 @@
 # obtain a copy from the repository root cited above.
 #
 
-from __future__ import unicode_literals
+from jmapd.service import ReaderBase, WriterBase
 
-from ._base import UtcDate, JmapId
-from .log import LogEntry
-from .core import Capabilities
+
+class MailReaderServices(ReaderBase):
+    pass
+
+
+class MailWriterServices(WriterBase):
+    pass

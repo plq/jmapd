@@ -9,6 +9,8 @@
 # obtain a copy from the repository root cited above.
 #
 
+from __future__ import unicode_literals
+
 from datetime import datetime
 
 from spyne import ComplexModel, M, DateTime, Any, Integer64, IpAddress
