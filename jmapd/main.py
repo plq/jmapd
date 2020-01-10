@@ -13,11 +13,12 @@ import sys
 from neurons.daemon import main
 from neurons.daemon import ServiceDaemon, ServiceDefinition, HttpServer
 
-from jmapd.model.core import CoreCapabilities
+from jmapd.model.core import CoreCapabilities, MailCapabilities
 
 
 class JmapDaemon(ServiceDaemon):
     caps_core = CoreCapabilities
+    caps_mail = MailCapabilities
 
     @classmethod
     def get_default(cls, daemon_name):

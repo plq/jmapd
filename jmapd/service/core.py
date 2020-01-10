@@ -24,7 +24,8 @@ class CoreReaderServices(ReaderBase):
     @rpc(_returns=Capabilities.customize(wrapper='capabilities'))
     def jmap(ctx):
         retval = Capabilities(
-            core=ctx.app.config.caps_core
+            core=ctx.app.config.caps_core,
+            mail=ctx.app.config.caps_mail,
         )
 
         logger.info("%s", pformat(retval))
