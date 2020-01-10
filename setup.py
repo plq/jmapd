@@ -13,7 +13,7 @@ v = open(os.path.join(os.path.dirname(__file__), 'jmapd', '__init__.py'))
 VERSION = re.compile(r".*__version__ *= *['\"](.*?)['\"]", re.S) \
                                                        .match(v.read()).group(1)
 
-DEPENDENCIES = 'spyne', 'twisted', 'sqlalchemy'
+DEPENDENCIES = ('neurons',)
 
 setuptools.setup(
     name="jmapd",
@@ -33,4 +33,9 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=2.7',
+    entry_points={
+        'console_scripts': [
+            'jmapd=jmapd.main:jmapd_main',
+        ]
+    },
 )
