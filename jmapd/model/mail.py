@@ -286,7 +286,7 @@ class Email(ComplexModel):
         # Header fields
         #
 
-        ('messageId', Array(Unicode,
+        ('message_id', Array(Unicode,
             sub_name='messageId',
             doc='String[]|null (immutable) The value is identical to the '
                 'value of header:Message-ID:asMessageIds. For messages '
@@ -294,7 +294,7 @@ class Email(ComplexModel):
                 'entry.'
         )),
 
-        ('inReplyTo', Array(Unicode,
+        ('in_reply_to', Array(Unicode,
             sub_name='inReplyTo',
             doc='String[]|null (immutable) The value is identical to the '
                 'value of header:In-Reply-To:asMessageIds.'
