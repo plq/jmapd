@@ -34,6 +34,12 @@ class EmailAddress(ComplexModel):
         ('address', M(Unicode(default='', sub_name='email'))),
     ]
 
+    def __eq__(self, other):
+        return self.name == other.name and self.address == other.address
+
+    def __ne__(self, other):
+        return self.name != other.name or self.address != other.address
+
     def is_empty(self):
         return (self.name is None and self.address is None) \
                              or (len(self.name) == 0 and len(self.address) == 0)
