@@ -29,7 +29,7 @@ class EmailHeader(ComplexModel):
 
 class EmailAddress(ComplexModel):
     _type_info = [
-        ('name', M(Unicode(default=''))),
+        ('name', Unicode(default='')),
         # sub_name used just to be consistent with EmailAddressGroup
         ('address', M(Unicode(default='', sub_name='email'))),
     ]
@@ -47,7 +47,7 @@ class EmailAddress(ComplexModel):
 
 class EmailAddressGroup(ComplexModel):
     _type_info = [
-        ('name', M(Unicode(default=''))),
+        ('name', Unicode(default='')),
         ('addresses', Array(M(Unicode(default='')))),
     ]
 
