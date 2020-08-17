@@ -431,3 +431,14 @@ class Email(ComplexModel):
                 "useful preview."
         )),
     ]
+
+
+if __name__ == "__main__":
+    from spyne.util.gencpp import gen_cpp_class
+
+    gen_cpp_class(EmailHeader, 'jmap')
+    gen_cpp_class(EmailAddress, 'jmap')
+    gen_cpp_class(EmailAddressGroup, 'jmap')
+    gen_cpp_class(EmailBodyValue, 'jmap')
+    gen_cpp_class(EmailBodyPart, 'jmap')
+    gen_cpp_class(Email, 'jmap')
