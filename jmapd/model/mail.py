@@ -55,33 +55,33 @@ class EmailAddressGroup(ComplexModel):
 class EmailBodyValue(ComplexModel):
     _type_info = [
         ('value', Unicode(
-            doc='String The value of the body part after decoding '
-                'Content-Transfer-Encoding and the Content-Type charset, '
-                'if both known to the server, and with any CRLF replaced with '
-                'a single LF. The server MAY use heuristics to determine the '
-                'charset to use for decoding if the charset is unknown, '
-                'no charset is given, or it believes the charset given is '
-                'incorrect. Decoding is best effort; the server SHOULD insert '
-                'the unicode replacement character (U+FFFD) and continue when '
-                'a malformed section is encountered.\n\n'
+            doc="String The value of the body part after decoding "
+                "Content-Transfer-Encoding and the Content-Type charset, "
+                "if both known to the server, and with any CRLF replaced with "
+                "a single LF. The server MAY use heuristics to determine the "
+                "charset to use for decoding if the charset is unknown, "
+                "no charset is given, or it believes the charset given is "
+                "incorrect. Decoding is best effort; the server SHOULD insert "
+                "the unicode replacement character (U+FFFD) and continue when "
+                "a malformed section is encountered.\n\n"
 
-                'Note that due to the charset decoding and line ending '
-                'normalisation, the length of this string will probably not '
-                'be exactly the same as the size property on the '
-                'corresponding EmailBodyPart.'
+                "Note that due to the charset decoding and line ending "
+                "normalisation, the length of this string will probably not "
+                "be exactly the same as the size property on the "
+                "corresponding EmailBodyPart."
         )),
 
         ('is_encoding_problem', M(Boolean(
             sub_name='isEncodingProblem', default=False,
-            doc='Boolean (default: false) This is true if malformed sections '
-                'were found while decoding the charset, or the charset was '
-                'unknown, or the content-transfer-encoding was unknown.',
+            doc="(default: false) This is true if malformed sections "
+                "were found while decoding the charset, or the charset was "
+                "unknown, or the content-transfer-encoding was unknown.",
         ))),
 
         ('is_truncated', M(Boolean(
             sub_name='isTruncated', default=False,
-            doc='Boolean (default: false) This is true if the value has been '
-                'truncated.',
+            doc="(default: false) This is true if the value has been "
+                "truncated.",
         ))),
     ]
 
@@ -90,47 +90,47 @@ class EmailBodyPart(ComplexModel):
     _type_info = [
         ('part_id', Unicode(
             sub_name='partId',
-            doc='String|null Identifies this part uniquely within the Email. '
-                'This is scoped to the emailId and has no meaning outside of '
-                'the JMAP Email object representation. This is null if, '
-                'and only if, the part is of type multipart/*.'
+            doc="Identifies this part uniquely within the Email. This is "
+                "scoped to the emailId and has no meaning outside of the "
+                "JMAP Email object representation. This is null if, and only "
+                "if, the part is of type multipart."
         )),
 
         ('blob_id', JmapId(
             sub_name='blobId',
-            doc='Id|null The id representing the raw octets of the contents '
-                'of the part, after decoding any known '
-                'Content-Transfer-Encoding (as defined in [@!RFC2045]), '
-                'or null if, and only if, the part is of type multipart/*. '
-                'Note that two parts may be transfer-encoded differently but '
-                'have the same blob id if their decoded octets are identical '
-                'and the server is using a secure hash of the data for the '
-                'blob id. If the transfer encoding is unknown, it is treated '
-                'as though it had no transfer encoding.'
+            doc="Id|null The id representing the raw octets of the contents "
+                "of the part, after decoding any known "
+                "Content-Transfer-Encoding (as defined in [@!RFC2045]), or "
+                "null if, and only if, the part is of type multipart. Note "
+                "that two parts may be transfer-encoded differently but have "
+                "the same blob id if their decoded octets are identical and "
+                "the server is using a secure hash of the data for the blob "
+                "id. If the transfer encoding is unknown, it is treated as "
+                "though it had no transfer encoding."
         )),
 
         ('size', M(UnsignedInteger(
             sub_name='size',
-            doc='UnsignedInt The size, in octets, of the raw data after '
-                'content transfer decoding (as referenced by the blobId, '
-                'i.e., the number of octets in the file the user would '
-                'download).'
+            doc="UnsignedInt The size, in octets, of the raw data after "
+                "content transfer decoding (as referenced by the blobId, "
+                "i.e., the number of octets in the file the user would "
+                "download)."
         ))),
 
         ('headers', Array(EmailHeader,
             sub_name='headers',
-            doc='EmailHeader[] This is a list of all header fields in the '
-                'part, in the order they appear in the message. The values '
-                'are in Raw form.'
+            doc="This is a list of all header fields in the "
+                "part, in the order they appear in the message. The values "
+                "are in Raw form."
         )),
 
         ('name', Unicode(
             sub_name='name',
-            doc='String|null This is the decoded filename parameter of the '
-                'Content-Disposition header field per [@!RFC2231], or (for '
-                'compatibility with existing systems) if not present, '
-                'then it’s the decoded name parameter of the Content-Type '
-                'header field per [@!RFC2047].'
+            doc="This is the decoded filename parameter of the "
+                "Content-Disposition header field per [@!RFC2231], or (for "
+                "compatibility with existing systems) if not present, "
+                "then it’s the decoded name parameter of the Content-Type "
+                "header field per [@!RFC2047]."
         )),
 
         ('type', M(Unicode(
@@ -144,47 +144,47 @@ class EmailBodyPart(ComplexModel):
 
         ('charset', Unicode(
             sub_name='charset',
-            doc='String|null The value of the charset parameter of the '
-                'Content-Type header field, if present, or null if the header '
-                'field is present but not of type text/*. If there is no '
-                'Content-Type header field, or it exists and is of type '
-                'text/* but has no charset parameter, this is the implicit '
-                'charset as per the MIME standard: us-ascii.'
+            doc="The value of the charset parameter of the Content-Type "
+                "header field, if present, or null if the header field is "
+                "present but not of type text. If there is no Content-Type "
+                "header field, or it exists and is of type text but has no "
+                "charset parameter, this is the implicit charset as per the "
+                "MIME standard: us-ascii."
         )),
 
         ('disposition', Unicode(
             sub_name='disposition',
-            doc='String|null The value of the Content-Disposition header '
-                'field of the part, if present; otherwise, it’s null. CFWS is '
-                'removed and any parameters are stripped.'
+            doc="The value of the Content-Disposition header "
+                "field of the part, if present; otherwise, it’s null. CFWS is "
+                "removed and any parameters are stripped."
         )),
 
         ('cid', Unicode(
             sub_name='cid',
-            doc='String|null The value of the Content-Id header field of the '
-                'part, if present; otherwise it’s null. CFWS and surrounding '
-                'angle brackets (<>) are removed. This may be used to '
-                'reference the content from within a text/html body part HTML '
-                'using the cid: protocol, as defined in [@!RFC2392].'
+            doc="The value of the Content-Id header field of the "
+                "part, if present; otherwise it’s null. CFWS and surrounding "
+                "angle brackets (<>) are removed. This may be used to "
+                "reference the content from within a text/html body part HTML "
+                "using the cid: protocol, as defined in [@!RFC2392]."
         )),
 
         ('language', Array(Unicode,
             sub_name='language',
-            doc='String[]|null The list of language tags, as defined in ['
-                '@!RFC3282], in the Content-Language header field of the '
-                'part, if present.'
+            doc="The list of language tags, as defined in ["
+                "@!RFC3282], in the Content-Language header field of the "
+                "part, if present."
         )),
 
         ('location', Unicode(
             sub_name='location',
-            doc='String|null The URI, as defined in [@!RFC2557], in the '
-                'Content-Location header field of the part, if present.'
+            doc="The URI, as defined in [@!RFC2557], in the "
+                "Content-Location header field of the part, if present."
         )),
 
         ('subParts', Array(SelfReference,
             sub_name='subParts',
-            doc='EmailBodyPart[]|null If the type is multipart/*, '
-                'this contains the body parts of each child.'
+            doc="If the type is multipart, this contains the body parts of "
+                "each child."
         )),
     ]
 
@@ -239,14 +239,14 @@ class Email(ComplexModel):
 
         ('id', JmapId(
             sub_name='id',
-            doc="Id (immutable; server-set) The id of the Email object. Note "
+            doc="(immutable; server-set) The id of the Email object. Note "
                 "that this is the JMAP object id, NOT the Message-ID header "
                 "field value of the message [@!RFC5322]."
         )),
 
         ('blob_id', JmapId(
             sub_name='blobId',
-            doc="Id (immutable; server-set) The id representing the raw "
+            doc="(immutable; server-set) The id representing the raw "
                 "octets of the message [@!RFC5322] for this Email. This may "
                 "be used to download the raw original message or to attach it "
                 "directly to another Email, etc."
@@ -298,71 +298,71 @@ class Email(ComplexModel):
 
         ('message_id', Array(Unicode,
             sub_name='messageId',
-            doc='String[]|null (immutable) The value is identical to the '
-                'value of header:Message-ID:asMessageIds. For messages '
-                'conforming to RFC 5322 this will be an array with a single '
-                'entry.'
+            doc="(immutable) The value is identical to the "
+                "value of header:Message-ID:asMessageIds. For messages "
+                "conforming to RFC 5322 this will be an array with a single "
+                "entry."
         )),
 
         ('in_reply_to', Array(Unicode,
             sub_name='inReplyTo',
-            doc='String[]|null (immutable) The value is identical to the '
-                'value of header:In-Reply-To:asMessageIds.'
+            doc="(immutable) The value is identical to the "
+                "value of header:In-Reply-To:asMessageIds."
         )),
 
         ('references', Array(Unicode,
             sub_name='references',
-            doc='String[]|null (immutable) The value is identical to the '
-                'value of header:References:asMessageIds.'
+            doc="(immutable) The value is identical to the "
+                "value of header:References:asMessageIds."
         )),
 
         ('sender', Array(EmailAddress,
             sub_name='sender',
-            doc='EmailAddress[]|null (immutable) The value is identical to '
-                'the value of header:Sender:asAddresses.'
+            doc="(immutable) The value is identical to "
+                "the value of header:Sender:asAddresses."
         )),
 
         ('from_', Array(Unicode,
             sub_name='from',
-            doc='EmailAddress[]|null (immutable) The value is identical to '
-                'the value of header:From:asAddresses.'
+            doc="(immutable) The value is identical to "
+                "the value of header:From:asAddresses."
         )),
 
         ('to', Array(Unicode,
             sub_name='to',
-            doc='EmailAddress[]|null (immutable) The value is identical to '
-                'the value of header:To:asAddresses.'
+            doc="(immutable) The value is identical to "
+                "the value of header:To:asAddresses."
         )),
 
         ('cc', Array(Unicode,
             sub_name='cc',
-            doc='EmailAddress[]|null (immutable) The value is identical to '
-                'the value of header:Cc:asAddresses.'
+            doc="(immutable) The value is identical to "
+                "the value of header:Cc:asAddresses."
         )),
 
         ('bcc', Array(Unicode,
             sub_name='bcc',
-            doc='EmailAddress[]|null (immutable) The value is identical to '
-                'the value of header:Bcc:asAddresses.'
+            doc="(immutable) The value is identical to "
+                "the value of header:Bcc:asAddresses."
         )),
 
         ('reply_to', Unicode(
             sub_name='replyTo',
-            doc='EmailAddress[]|null (immutable) The value is identical to '
-                'the value of header:Reply-To:asAddresses.'
+            doc="(immutable) The value is identical to "
+                "the value of header:Reply-To:asAddresses."
         )),
 
         ('subject', Unicode(
             sub_name='subject',
-            doc='String|null (immutable) The value is identical to the value '
-                'of header:Subject:asText.'
+            doc="(immutable) The value is identical to the value "
+                "of header:Subject:asText."
         )),
 
         ('sent_at', DateTime(
             sub_name='sentAt',
-            doc='Date|null (immutable; default on creation: current server '
-                'time) The value is identical to the value of '
-                'header:Date:asDate.'
+            doc="(immutable; default on creation: current server "
+                "time) The value is identical to the value of "
+                "header:Date:asDate."
         )),
 
         #
@@ -371,64 +371,63 @@ class Email(ComplexModel):
 
         ('body_structure', Array(EmailBodyPart,
             sub_name='bodyStructure',
-            doc='EmailBodyPart (immutable) This is the full MIME structure of '
-                'the message body, without recursing into message/rfc822 or '
-                'message/global parts. Note that EmailBodyParts may have '
-                'subParts if they are of type multipart/*.'
+            doc="(immutable) This is the full MIME structure of the message "
+                "body, without recursing into message/rfc822 or message/global "
+                "parts. Note that EmailBodyParts may have subParts if they "
+                "are of type multipart."
         )),
 
         ('body_values', AnyDict(
             sub_name='bodyValues',
-            doc='String[EmailBodyValue] (immutable) This is a map of partId '
-                'to an EmailBodyValue object for none, some, or all text/* '
-                'parts. Which parts are included and whether the value is '
-                'truncated is determined by various arguments to Email/get '
-                'and Email/parse.'
+            doc="(immutable) This is a map of partId to an EmailBodyValue "
+                "object for none, some, or all text parts. Which parts are "
+                "included and whether the value is truncated is determined "
+                "by various arguments to Email/get and Email/parse."
         )),
 
         ('text_body', Array(EmailBodyPart,
             sub_name='textBody',
-            doc='EmailBodyPart[] (immutable) A list of text/plain, text/html, '
-                'image/*, audio/*, and/or video/* parts to display ('
-                'sequentially) as the message body, with a preference for '
-                'text/plain when alternative versions are available.'
+            doc="(immutable) A list of text/plain, text/html, image, audio, "
+                "and/or video parts to display (sequentially) as the message "
+                "body, with a preference for text/plain when alternative "
+                "versions are available."
         )),
 
         ('html_body', Array(EmailBodyPart,
             sub_name='htmlBody',
-            doc='EmailBodyPart[] (immutable) A list of text/plain, text/html, '
-                'image/*, audio/*, and/or video/* parts to display ('
-                'sequentially) as the message body, with a preference for '
-                'text/html when alternative versions are available.'
+            doc="(immutable) A list of text/plain, text/html, image, audio, "
+                "and/or video parts to display (sequentially) as the message "
+                "body, with a preference for text/html when alternative "
+                "versions are available."
         )),
 
         ('attachments', Array(EmailBodyPart,
             sub_name='attachments',
-            doc='EmailBodyPart[] (immutable) A list, traversing depth-first, '
-                'of all parts in bodyStructure that satisfy either of the '
-                'following conditions:'
+            doc="(immutable) A list, traversing depth-first, "
+                "of all parts in bodyStructure that satisfy either of the "
+                "following conditions:"
         )),
 
         ('has_attachment', M(Boolean(
             sub_name='hasAttachment', default=False,
-            doc='Boolean (immutable; server-set) This is true if there are '
-                'one or more parts in the message that a client UI should '
-                'offer as downloadable. A server SHOULD set hasAttachment to '
-                'true if the attachments list contains at least one item that '
-                'does not have Content-Disposition: inline. The server MAY '
-                'ignore parts in this list that are processed automatically '
-                'in some way or are referenced as embedded images in one of '
-                'the text/html parts of the message.'
+            doc="(immutable; server-set) This is true if there are "
+                "one or more parts in the message that a client UI should "
+                "offer as downloadable. A server SHOULD set hasAttachment to "
+                "true if the attachments list contains at least one item that "
+                "does not have Content-Disposition: inline. The server MAY "
+                "ignore parts in this list that are processed automatically "
+                "in some way or are referenced as embedded images in one of "
+                "the text/html parts of the message."
         ))),
 
         ('preview', Unicode(256,
             sub_name='preview', default=u'',
-            doc='String (immutable; server-set) A plaintext fragment of the '
-                'message body. This is intended to be shown as a preview line '
-                'when listing messages in the mail store and may be truncated '
-                'when shown. The server may choose which part of the message '
-                'to include in the preview; skipping quoted sections and '
-                'salutations and collapsing white space can result in a more '
-                'useful preview.'
+            doc="(immutable; server-set) A plaintext fragment of the "
+                "message body. This is intended to be shown as a preview line "
+                "when listing messages in the mail store and may be truncated "
+                "when shown. The server may choose which part of the message "
+                "to include in the preview; skipping quoted sections and "
+                "salutations and collapsing white space can result in a more "
+                "useful preview."
         )),
     ]
